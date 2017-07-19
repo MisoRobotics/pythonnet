@@ -65,6 +65,9 @@ WIN_SDK_KEYS = (
 )
 
 VS_KEYS = (
+    RegKey(sdk_name="MSBuild 15", key=vs_root.format("15.0"),
+           value_name="MSBuildToolsPath", suffix=""),
+
     RegKey(sdk_name="MSBuild 14", key=vs_root.format("14.0"),
            value_name="MSBuildToolsPath", suffix=""),
 
@@ -206,7 +209,7 @@ class BuildExtPythonnet(build_ext.build_ext):
             'pythonnet.sln',
             '/p:Configuration={}'.format(_config),
             '/p:Platform={}'.format(ARCH),
-            '/p:DefineConstants="{}"'.format(','.join(defines)),
+            '/p:DefineConstants="{}"'.format('%3B'.join(defines)),
             '/p:PythonBuildDir="{}"'.format(os.path.abspath(dest_dir)),
             '/p:PythonInteropFile="{}"'.format(os.path.basename(interop_file)),
             '/verbosity:{}'.format(VERBOSITY),
